@@ -2,7 +2,7 @@
  Ted's simple url shortener 
 
 ### Screenshots
-![Screenshot](screenshots/pages.png)
+![Screenshot](screenshots/page.png)
 
 [Live Demo Link Coming Soon][]
 
