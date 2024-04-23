@@ -9,3 +9,7 @@ dist/
 *.sublime-*
 *.egg-info/
 MANIFEST
+path/
+venv/
+tests/
+test/
