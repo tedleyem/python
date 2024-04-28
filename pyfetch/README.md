@@ -4,6 +4,8 @@ The inspiration in this project was to recreate [neofetch](https://github.com/dy
 
 Just like Neofetch, pyFetch displays information about your operating system, software and hardware in an aesthetic and visually pleasing way. 
 
+# https://docs.python.org/3/library/os.html 
+
 # Usage (unix/osx)
 $ apt install python3.11 
 $ apt install python3.11-venv

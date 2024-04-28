@@ -15,35 +15,40 @@ import os
 
 # Get user@hostname 
 def get_current_user():
-    print('user@test')
+    print('Test: user@test')
     
 # define system  
 def get_os_info():
-    try:
-        distribution = subprocess.check_output(['lsb_release', '-ds']).decode().strip()
-        return distribution if distribution else platform.platform()
-    except FileNotFoundError:
-        return platform.platform()
+    #try:
+    #    distribution = subprocess.check_output(['lsb_release', '-ds']).decode().strip()
+    #    return distribution if distribution else platform.platform()
+    #except FileNotFoundError:
+    #return platform.platform()
+    print('Test: OS: OS INFO')
 
 # define host info 
 def get_host_info():
-    try:
-        distribution = subprocess.check_output(['lsb_release', '-ds']).decode().strip()
-        return distribution if distribution else platform.platform()
-    except FileNotFoundError:
-        return platform.platform()
+    # https://docs.python.org/3/library/os.html
+    #try:
+    #    distribution = subprocess.check_output(['lsb_release', '-ds']).decode().strip()
+    #    return distribution if distribution else platform.platform()
+    #except FileNotFoundError:
+    #    return platform.platform()
+    print('Test: Host: HOST INFO')
+    socket.gethostbyaddr(socket.gethostname())
 
 # get kernel version
 def get_kernel_version():
+    print('Test: Kernel: kernel version')
     return platform.uname().release
 
 # get uptime
 def get_system_uptime():
-    print('test')
+    print('Test: Uptime: its on so its up (uptime)')
 
 # get Packages 
 def get_packages():
-    print('test')
+    print('Test: Packages: packages list')
 
 # shell 
 def get_shell_info():
@@ -57,7 +62,7 @@ def get_shell_info():
 
 # get resolution 
 def get_resolution():
-    print('test')
+    print('Test: Resolution: resolution info')
 
 # Desktop Environment
 def get_desktop_environment():
@@ -68,6 +73,7 @@ def get_desktop_environment():
         if de:
             return de 
         return "DE not detected"
+        print('DE: desktop env')
 
 # Windows Manager 
 def get_window_manager():
@@ -79,7 +85,7 @@ def get_window_manager():
 
 # get terminal info 
 def get_terminal_manager():
-    print('test')
+    print('Test: terminal info')
 
 # get cpu info 
 def get_cpu_name():
@@ -109,11 +115,12 @@ def get_cpu_util():
 
 def get_cpu_info():
     full_cpu_info = print('{cpu_name} - {cpu_utilization}')
-    return full_cpu_info
+    #return full_cpu_info
+    print('Test: cpu info')
     
 # get gpu info 
 def get_gpu_info():
-    print('test')
+    print('Test: gpu info')
     #gpu_data = torch.cuda.get_device_name()
     #print('test')
     #gpus = GPU.getGPUs()
@@ -122,19 +129,20 @@ def get_gpu_info():
     #return gpu_data
 
 def get_mem_info():
-    mem = psutil.virtual_memory()
-    mem_used = f"{int(mem.used / (1024 * 1024))}MB / {int(mem.total / (1024 * 1024))}MB"
-    return mem_used 
+    print('Test: memory info')
+    #mem = psutil.virtual_memory()
+    #mem_used = f"{int(mem.used / (1024 * 1024))}MB / {int(mem.total / (1024 * 1024))}MB"
+    #return mem_used 
 
 def color_theme_block():
-    print('test')
+    print('Test: Color theme block')
 
 # Fetch the info collected
 def fetch_sys_info():
     current_user = get_current_user()
     div_string = print('------------------------') 
-    os_info = get_os_info()
-    host_info = get_host_info()
+    os_string = get_os_info()
+    host_string = get_host_info()
     kernel_version = get_kernel_version()
     system_uptime = get_system_uptime() # kind of redundant but its cool 
     package_info = get_packages()
@@ -146,12 +154,13 @@ def fetch_sys_info():
     cpu_info = get_cpu_info()
     gpu_info = get_gpu_info()
     mem_info = get_mem_info()
+    colors_info = color_theme_block()
 
     system_info = {
         '': current_user,
         '': div_string,
-        'OS': os_info,
-        'Host': host_info,
+        'OS': os_string,
+        'Host': host_string,
         'Kernel': kernel_version,
         'Uptime': system_uptime,
         'Packages': package_info,
