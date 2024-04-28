@@ -13,3 +13,4 @@ path/
 venv/
 tests/
 test/
+env/
