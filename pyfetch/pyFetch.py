@@ -1,138 +1,86 @@
 import psutil
 import platform
-import subprocess
+import subprocess as sp
 import os
-#import torch # for gpu check
-#from uptime import uptime
 
 # TO DO 
 # import Logos from Logos
-# get gpu info 
-# get uptime of system 
-
-# more info on platform module 
+# get gpu info  
 # https://docs.python.org/3/library/platform.html
+# subprocess 
+# https://docs.python.org/3/library/subprocess.html#module-subprocess
 
 # Get user@hostname 
 def get_current_user():
-    print('Test: user@test')
+    uname_output = sp.getoutput('whoami')
+    hostname_output = sp.getoutput('hostname')
+    print(uname_output + '@' + hostname_output)
     
 # define system  
 def get_os_info():
-    #try:
-    #    distribution = subprocess.check_output(['lsb_release', '-ds']).decode().strip()
-    #    return distribution if distribution else platform.platform()
-    #except FileNotFoundError:
-    #return platform.platform()
-    print('Test: OS: OS INFO')
+    os_output = sp.getoutput('uname -srm')
+    print('OS: ' + os_output)
 
 # define host info 
 def get_host_info():
-    # https://docs.python.org/3/library/os.html
-    #try:
-    #    distribution = subprocess.check_output(['lsb_release', '-ds']).decode().strip()
-    #    return distribution if distribution else platform.platform()
-    #except FileNotFoundError:
-    #    return platform.platform()
-    print('Test: Host: HOST INFO')
-    socket.gethostbyaddr(socket.gethostname())
+    #device_dir = sp.getoutput('cat /sys/devices/virtual/dmi/id/')
+    dev_product_name = sp.getoutput('cat /sys/devices/virtual/dmi/id/product_name')
+    dev_product_version = sp.getoutput('cat /sys/devices/virtual/dmi/id/product_version')
+    # create if statement to check device files
+    #dev_board_vendor = board_vendor     
+    #dev_board_name = board_name       
+    # host_output = sp.getoutput('command')
+    # Host: 82SG IdeaPad 5 15ABA7 
+    # product name #product version
+    print('Host: ' + dev_product_name + ' ' + dev_product_version) 
 
 # get kernel version
 def get_kernel_version():
-    print('Test: Kernel: kernel version')
-    return platform.uname().release
+    host_output = sp.getoutput('uname -r')
+    print('Kernel: ' + host_output)
 
 # get uptime
 def get_system_uptime():
-    print('Test: Uptime: its on so its up (uptime)')
+    uptime = sp.getoutput("echo $(awk '{print $1}' /proc/uptime) / 60 | bc")
+    print('Uptime: ' + uptime + ' minutes')
 
 # get Packages 
 def get_packages():
-    print('Test: Packages: packages list')
+    print('Packages: TEST')
 
 # shell 
 def get_shell_info():
-    if platform.system() == 'Windows':
-        return "CMD / PS"
-    else:
-        shell = os.environ.get('SHELL')
-        if shell:
-            return shell.split('/')[-1]
-        return "Shell not detected"
+    print('Shell: TEST')
 
 # get resolution 
 def get_resolution():
-    print('Test: Resolution: resolution info')
+    resolution_output = sp.getoutput("xdpyinfo | awk '/dimensions:/ {printf $2}'")
+    print('Resolution: ' + resolution_output)
 
 # Desktop Environment
 def get_desktop_environment():
-    if platform.system() == 'Windows':
-        return "Windows Explorer"
-    else:
-        de = os.environ.get('XDG_CURRENT_DESKTOP')
-        if de:
-            return de 
-        return "DE not detected"
-        print('DE: desktop env')
+    print('DE: TEST')
 
 # Windows Manager 
 def get_window_manager():
-    wm = subprocess.getoutput('echo $XDG_SESSION_DESKTOP')
-    if wm:
-        return wm
-    else:
-        return "WM not detected"
+    print('WM: TEST')
 
 # get terminal info 
 def get_terminal_manager():
-    print('Test: terminal info')
+    print('Terminal: TEST')
 
 # get cpu info 
-def get_cpu_name():
-    if platform.system() == 'Windows':
-        try:
-            process = subprocess.Popen(
-                "wmic cpu get name", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE
-            )
-            output, _ = process.communicate()
-            output = output.decode("utf-8").strip().split("\n")
-            return output[1] if len(output) > 1 else "CPU Name Not Found"
-        except Exception as e:
-            print(f"Error while fetching CPU name: {e}")
-            return "CPU Name Not Found"
-    elif platform.system() == 'Darwin':
-        return platform.uname().processor
-    elif platform.system() == 'Linux':
-        with open('/proc/cpuinfo') as f:
-            for line in f:
-                if line.strip() and line.rstrip('\n').startswith('model name'):
-                    return line.rstrip('\n').split(':')[1].strip()
-    return 'CPU Name Not Found'
-
-def get_cpu_util():
-    cpu_utilization = f"{psutil.cpu_percent()}% utilized"
-    return cpu_utilization
-
 def get_cpu_info():
-    full_cpu_info = print('{cpu_name} - {cpu_utilization}')
-    #return full_cpu_info
-    print('Test: cpu info')
+    print('CPU: TEST')
     
 # get gpu info 
 def get_gpu_info():
-    print('Test: gpu info')
-    #gpu_data = torch.cuda.get_device_name()
-    #print('test')
-    #gpus = GPU.getGPUs()
-    #gpu_data = [f"{gpu.name}" for gpu in gpus]
-    ##gpu_info = print('GPU': ', '.join(gpu_data) )
-    #return gpu_data
+    print('GPU: TEST')
 
-def get_mem_info():
-    print('Test: memory info')
-    #mem = psutil.virtual_memory()
-    #mem_used = f"{int(mem.used / (1024 * 1024))}MB / {int(mem.total / (1024 * 1024))}MB"
-    #return mem_used 
+def get_mem_info(): 
+    mem_used = sp.getoutput("xdpyinfo | awk '/dimensions:/ {printf $2}'")
+    mem_total = sp.getoutput("xdpyinfo | awk '/dimensions:/ {printf $2}'")
+    print('Memory: ' + mem_used + ' / ' + mem_total )
 
 def color_theme_block():
     print('Test: Color theme block')
@@ -175,26 +123,7 @@ def fetch_sys_info():
     },
     return system_info
 
-# Print out all gathered info in for loop
-def display_sys_info(system_info):
-
-    total_lines = max(len(system_info))
-
-    for line_num in range(total_lines): 
-        sys_info_line = list(system_info.items())[line_num] if line_num < len(system_info) else None
-
-        if sys_info_line:
-            key, value = sys_info_line
-#            if key == 'GPU':
-#                print(f"{logo_line}{' ' * (max_logo_length - len(logo_line))}    {key}: {value}")
-#            else:
-#                print(f"{logo_line}{' ' * (max_logo_length - len(logo_line))}    {key}: {value}")
-#        else:
-#            print(f"{logo_line}{' ' * (max_logo_length - len(logo_line))}")
-
 if __name__ == "__main__":
-    sys_info = fetch_sys_info()
+    fetch_sys_info()
     
-    display_sys_info(sys_info)
-
  
