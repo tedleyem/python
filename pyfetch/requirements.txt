@@ -2,3 +2,7 @@ psutil
 GPUtil
 subprocess32
 uptime
+colorama
+termcolor
+pyfiglet
+random
