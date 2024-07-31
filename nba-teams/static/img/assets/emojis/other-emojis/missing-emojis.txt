@@ -1,0 +1,9 @@
+clippers 
+knicks
+lakers
+mavericks
+pacers
+spurs
+suns
+timberwolves
+

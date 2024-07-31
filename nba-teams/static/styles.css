@@ -1,0 +1,137 @@
+body {
+  margin-top: 50px;
+}
+
+img {
+  border-radius: 50%;
+}
+
+.lrg-heading {
+  font-size: 48px;
+}
+
+.description {
+  font-size: 24px;
+  color: gray;
+}
+
+.brand {
+  color: yellow;
+}
+
+.positive {
+  border: 1px solid rgba(0,164,0,.8)
+}
+
+.negative {
+  border: 1px solid rgba(164,0,0,.8)
+}
+
+/* line 14, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 {
+  position: relative;
+  z-index: 1;
+  background-color: #454545;
+}
+
+@media (max-width: 576px) {
+  /* line 14, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+  .select_a_team.upcoming_event_1 {
+    margin-bottom: 250px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 14, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+  .select_a_team.upcoming_event_1 {
+    margin-bottom: 150px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 14, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+  .select_a_team.upcoming_event_1 {
+    margin-bottom: 200px;
+  }
+}
+
+/* line 31, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 271px;
+  background-color: #454545;
+  padding: 35px 22px;
+  box-shadow: 0px 0px 0px 10px rgba(255, 255, 255, 0.5);
+  margin: 10px;
+}
+
+@media (max-width: 576px) {
+  /* line 31, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+  .select_a_team.upcoming_event_1 .upcoming_event_text {
+    top: 50%;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* line 31, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+  .select_a_team.upcoming_event_1 .upcoming_event_text {
+    top: 40%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* line 31, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+  .select_a_team.upcoming_event_1 .upcoming_event_text {
+    top: 40%;
+  }
+}
+
+/* line 52, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text .date {
+  display: inline-block;
+  float: left;
+  padding-right: 20px;
+  margin-right: 20px;
+  border-right: 2px solid #fff;
+}
+
+/* line 58, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text .date h3 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* line 62, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text .date h3 span {
+  font-size: 50%;
+  display: block;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+/* line 73, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text .time ul li {
+  color: #fff;
+  margin-bottom: 13px;
+}
+
+/* line 76, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text .time ul li span {
+  font-size: 14px;
+  margin-right: 13px;
+}
+
+/* line 82, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text p {
+  color: #fff;
+  margin-top: 35px;
+}
+
+/* line 86, E:/166 Basketball/Basketball_Template/sass/_upcoming_event.scss */
+.select_a_team.upcoming_event_1 .upcoming_event_text .btn_2 {
+  margin-top: 22px;
+}

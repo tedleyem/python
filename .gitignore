@@ -1,2 +1,13 @@
 .DS_Store
 .pre-commit-config.yml
+.idea/
+.vscode/
+.venv*/
+venv*/
+virtenv/
+__pycache__/
+dist/
+.coverage*
+htmlcov/
+.tox/
+docs/_build/
