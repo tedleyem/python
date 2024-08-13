@@ -1,0 +1,18 @@
+{% extends 'layouts/main.html' %}
+{% block title %}About{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>This fan site has no affiliation with Adrian Wojnarowski</h1>
+</div>
+<p class="lead">This is a site that scrapes for <a href="/wiki-woj">"Woj Bombs"</a> from @wojespn via Twitter and Instagram. Great for big NBA coverage days like NBA Draft, Trade deadlines, All Star Weekend, etc </p>
+<p class="lead"> Please report bugs<a href="/bugs">here</a> or concerns to my <a href="/contact">Twitter Page</a></p>
+<p class="lead"> Or, if this site helps you at all <a href="/donate">buy me a cup of coffee</a></p>
+
+
+<h1>Much Love and appreciation to Adrian Wojnarowski</h1>
+<div class="col">
+  <img class="img-thumbnail text-center" src="{{ url_for('static', filename='images/woj-banner-1500x500.jpeg') }}"> </img>
+</div>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'layouts/main.html' %}
+{% block title %}WojBomb.com{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1 class="text-center">Check out the latest WOJ BOMBS!</h1>
+</div>
+<p class="lead text-center">Great for big NBA coverage days like NBA Draft,
+  Trade deadlines, All Star Weekend, and more</p>
+
+<div class="container text-center">
+
+<!-- FIRST columns of tweets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <div class="container">
+      <div class="row">
+      <div class="col-xs-12 col-md-4 col-lg-5 bootstrap">
+        <div class="widget panel">
+          <div class="panel-body">
+            <h4 class="mb0">Latest Tweet
+              <i class="fa fa-twitter text-info pull-right"></i>
+            </h4>
+            <hr>
+            <img class="img-circle img-bordered-primary" src="{{ url_for('static', filename='images/woj-profile-pic-400x400.jpg') }}" alt="" width="65px" height="65px">
+            <h5 class="semibold ellipsis nm">Adrian Wojnarowski</h5>
+            <p class="text-muted nm">@wojespn</p>
+            <button type="button" class="btn btn-sm btn-success">Follow</button>
+          </div>
+          <!--  Tweet format -->
+          <ul class="list-group">
+            <li class="tweet-card">
+              <div class="tweet-content">
+                <div class="tweet-header">
+                  <span class="fullname">
+                    <strong>Jon Vadillo</strong>
+                  </span>
+                  <span class="username">@JonVadillo</span>
+                  <span class="tweet-time">- Jul 18</span>
+                </div>
+                <a>
+                  <img class="tweet-card-avatar" src="{{ url_for('static', filename='images/woj-profile-pic-400x400.jpg') }}" alt="">
+                </a>
+                <div class="tweet-text">
+                  <p class="" lang="es" data-aria-label-part="0">FIRST TWEET <a href="https://t.co/dqg5hVQXA0" class="twitter-timeline-link" target="_blank"><span class="">https://www.example.com</span></a>
+                    <a href="" class="twitter-hashtag"><s>#</s><b>firefox</b></a> <a href="" class="twitter-hashtag"><s>#</s><b>comunidad</b></a>
+                    <a href="" class="twitter-hashtag" dir="ltr"></a>
+                  </p>
+                </div>
+                <div class="tweet-footer">
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-heart" aria-hidden="true"></i><span> 202</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-mail" aria-hidden="true"></i><span> 155</span>
+                  </a>
+                </div>
+              </div>
+            </li>
+          <!--  Tweet format -->
+          <!--  Tweet format -->
+          <ul class="list-group">
+            <li class="tweet-card">
+              <div class="tweet-content">
+                <div class="tweet-header">
+                  <span class="fullname">
+                    <strong>Jon Vadillo</strong>
+                  </span>
+                  <span class="username">@JonVadillo</span>
+                  <span class="tweet-time">- Jul 18</span>
+                </div>
+                <a>
+                  <img class="tweet-card-avatar" src="{{ url_for('static', filename='images/woj-profile-pic-400x400.jpg') }}" alt="">
+                </a>
+                <div class="tweet-text">
+                  <p class="" lang="es" data-aria-label-part="0">THIRD TWEET <a href="https://example.com" class="twitter-timeline-link" target="_blank"><span class="">https://www.example.com</span></a>
+                    <a href="" class="twitter-hashtag"><s>#</s><b>firefox</b></a> <a href="" class="twitter-hashtag"><s>#</s><b>comunidad</b></a>
+                    <a href="" class="twitter-hashtag" dir="ltr"></a>
+                  </p>
+                </div>
+                <div class="tweet-footer">
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-heart" aria-hidden="true"></i><span> 202</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-mail" aria-hidden="true"></i><span> 155</span>
+                  </a>
+                </div>
+              </div>
+            </li>
+          <!--  Tweet format -->
+          </ul>
+        </div>
+      </div>
+      <!--  SECOND COLUMN of tweets -->
+      <div class="col-xs-12 col-md-4 col-lg-5 bootstrap">
+        <div class="widget panel">
+          <div class="panel-body">
+            <h4 class="mb0">Latest Posts
+              <i class="fa fa-instagram text-info pull-right"></i>
+            </h4>
+            <hr>
+              <img class="img-circle img-bordered-primary" src="{{ url_for('static', filename='images/woj-profile-pic-400x400.jpg') }}" alt="" width="65px" height="65px">
+              <h5 class="semibold ellipsis nm">Adrian Wojnarowski</h5>
+              <p class="text-muted nm">@wojespn</p>
+              <button type="button" class="btn btn-sm btn-success">Follow</button>
+          </div>
+
+          <ul class="list-group">
+            <li class="list-group-item">
+              <p class="nm">Lorem ipsum dolor sit amet, consectetur <a href="javascript:void(0);">#adipisicing</a> elit, sed do eiusmod.</p>
+              <small class="text-muted">1 day ago</small>
+            </li>
+            <li class="list-group-item">
+              <p class="nm">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui <a href="javascript:void(0);">@officia</a> deserunt mollit anim id est laborum.</p>
+              <small class="text-muted">2 day ago</small>
+            </li>
+            <li class="list-group-item">
+              <p class="nm">Duis aute irure dolor in <a href="javascript:void(0);">tweet.er</a> in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+              <small class="text-muted">3 day ago</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+  </div> <!--end div of inner-box-->
+</div> <!--end div of box-->
+
+{% endblock %}
