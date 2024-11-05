@@ -1,8 +1,8 @@
 import platform
-from datetime import datetime
-import socket
-import uuid
-import re
+import argparse
+
+parser = argparse.ArgumentParser()
+#parser.add
 
 def get_size(bytes, suffix="B"):
     """
@@ -19,17 +19,17 @@ def get_size(bytes, suffix="B"):
 
 def ram_stats():
     # Memory Information
-    print("="*10, "Memory Information", "="*10) 
+    print("="*10, "Memory Information", "="*10)
 
 def cpu_stats():
     # print CPU information
-    print("="*10, "CPU Info", "="*10) 
+    print("="*10, "CPU Info", "="*10)
 
 def disk_stats():
     # Disk Information
     print("="*10, "Disk Information", "="*10)
-    print("Partitions and Usage:") 
-     
+    print("Partitions and Usage:")
+
 def more_stats():
     cpu_stats()
     disk_stats()
@@ -40,12 +40,12 @@ def System_information():
     print(f"user@hostname")
     uname = platform.uname()
     print(f"OS: {uname.system} {uname.release} {uname.machine}")
-    print(f"Host: {uname.node}") 
+    print(f"Host: {uname.node}")
     print(f"Kernel: test")
     print(f"Uptime: test")
-    print(f"Memory: test") 
+    print(f"Memory: test")
     print(f"Packages: test")
-    print(f"Shell: test")  
+    print(f"Shell: test")
     #more_stats()
     print(f"CPU: test")
     print(f"RAM: test")
