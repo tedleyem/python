@@ -1,0 +1,6 @@
+Flask
+redis
+tweepy
+datetime
+textblob
+json5

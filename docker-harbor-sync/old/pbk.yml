@@ -1,0 +1,73 @@
+---
+- name: Docker Image Tag Management and Push to Harbor
+  hosts: localhost
+  gather_facts: no
+  vars:
+    harbor_url: "http://172-105-152-241.ip.linodeusercontent.com"
+    project_name: "library"
+    robot_username: "robot$ec-linux"
+    robot_password: "KcQzGPxpW0e6ujD9OBdcq2EERNJwjtCn"
+    image_names:
+      - "library/nginx"
+      - "library/ubuntu"
+      - "library/redis"
+      #- "fleetdm/fleet"
+
+  tasks:
+    - name: Get last 5 tags from Docker Hub
+      uri:
+        url: "https://hub.docker.com/v2/repositories/{{ item }}/tags/"
+        method: GET
+        return_content: yes
+        headers:
+          Content-Type: "application/json"
+      loop: "{{ image_names }}"
+      register: docker_hub_tags
+      retries: 3
+      delay: 5
+      until: docker_hub_tags is success
+
+    - name: Parse and limit tags to the first 5
+      set_fact:
+        image_tags: "{{ docker_hub_tags.results | map(attribute='json.results') | flatten | map(attribute='name') | list }}"
+      when: docker_hub_tags.results is defined and docker_hub_tags.results | length > 0
+
+    - name: Limit the number of tags to 5 without using slice
+      set_fact:
+        limited_tags: "{{ image_tags[:5] }}"  # Manually limit to first 5 tags
+      when: image_tags is defined and image_tags | length > 0
+
+    - name: Fail if no tags were found for any image
+      fail:
+        msg: "No tags found for one or more images in Docker Hub."
+      when: limited_tags is not defined or limited_tags | length == 0
+
+    - name: Check if tags exist in Harbor and push if not
+      block:
+        - name: Check if image tag exists in Harbor
+          uri:
+            url: "{{ harbor_url }}/api/v2.0/projects/{{ project_name }}/repositories/{{ item.image_name }}/tags/{{ item.tag }}"
+            method: GET
+            headers:
+              Content-Type: "application/json"
+            status_code: 200
+          register: harbor_check
+          ignore_errors: yes
+          loop: "{{ limited_tags | map('regex_replace', '^', {'image_name': item}) | list }}"
+
+        - name: Pull image from Docker Hub if not found in Harbor
+          docker_image:
+            name: "{{ item.image_name }}"
+            tag: "{{ item.tag }}"
+            source: pull
+          when: harbor_check.failed
+          loop: "{{ limited_tags | list }}"
+
+        - name: Push image to Harbor
+          docker_image:
+            name: "{{ harbor_url }}/{{ project_name }}/{{ item.image_name }}"
+            tag: "{{ item.tag }}"
+            source: build
+            push: yes
+          loop: "{{ limited_tags | list }}"
+          when: harbor_check.failed

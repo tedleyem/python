@@ -1,0 +1,16 @@
+*.pyc
+build/
+dist/
+*.dll
+*.exe
+*.png
+*.zip
+*.swp
+*.sublime-*
+*.egg-info/
+MANIFEST
+path/
+venv/
+tests/
+test/
+env/

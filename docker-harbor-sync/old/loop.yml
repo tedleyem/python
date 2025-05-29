@@ -1,0 +1,15 @@
+- name: Pull image from Docker Hub
+  docker_image:
+    name: "docker.io/{{ image_name }}:{{ item }}"
+    source: pull
+
+- name: Tag image for 172-105-152-241.ip.linodeusercontent.com registry
+  docker_image:
+    name: "docker.io/{{ image_name }}:{{ item }}"
+    tag: "172-105-152-241.ip.linodeusercontent.com/{{ image_name }}:{{ item }}"
+
+- name: Push image to 172-105-152-241.ip.linodeusercontent.com registry
+  docker_image:
+    name: "172-105-152-241.ip.linodeusercontent.com/{{ image_name }}:{{ item }}"
+    source: push
+ 

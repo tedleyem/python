@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags --->
+    <meta charset="utf-8">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--->
+  <title>NBA Info Wiki Scraper</title>
+  </head>
+  <body>
+  {% extends "template.html" %}
+  {% block content %}
+  <div class="container">
+
+  <div class="row mb-5">
+    <div class="col text-center">
+      <h1 class="mb-3">
+        NBA Team Info Scraper
+      </h1>
+      <h2 class="mb-2">
+    <small class="text-muted">
+      This app was built to pull NBA Team data from wikipedia and save it to Redis.
+      Find out more information about your team and test that redis is working properly.
+    </small>
+    </h2>
+    </div>
+    </div>
+
+  {% for tweet in tweets %}
+    <div class="row my-4">
+    <div class="col">
+    <div class="card">
+    <div class="card-body">
+    <p class="card-text">
+      {{ tweet.filtered_text() }}
+    </p>
+    <br />
+    <div class="card-text">
+    <img alt="{{ tweet.data.username }}" height="48" src="{{ tweet.data.profile_image_url }}" width="48" class="mr-3"/>
+    {{ tweet.data.name }} (<a href="{{ tweet.user_link() }}" target="_blank">{{ tweet.data.username }}</a>)
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    {% endfor %}
+
+
+ <!-- Select a Team-->
+ <section class="select_a_team section_padding">
+  <div class="row">
+   <div class="col-md-6 col-xl-6">
+    <div class="upcoming_event_1">
+    <img src="img/upcoming_event_1.png" alt="#">
+    <div class="upcoming_event_text">
+     <div class="date">
+     <h3>Pick a Team </h3>
+     </div>
+    <div class="time">
+    <ul class="list-unstyle">
+     <select>
+      <option value="Atlanta Hawks">Atlanta Hawks</option>
+      <option value="Boston Celtics">Boston Celtics</option>
+      <option value="Brooklyn Nets">Brooklyn Nets</option>
+      <option value="Charlotte Hornets">Charlotte Hornets</option>
+      <option value="Chicago Bulls">Chicago Bulls</option>
+      <option value="Cleveland Cavaliers">Cleveland Cavaliers</option>
+      <option value="Dallas Mavericks">Dallas Mavericks</option>
+      <option value="Denver Nuggets">Denver Nuggets</option>
+      <option value="Detroit Pistons">Detroit Pistons</option>
+      <option value="Golden State Warriors">Golden State Warriors</option>
+      <option value="Houston Rockets">Houston Rockets</option>
+      <option value="Indiana Pacers">Indiana Pacers</option>
+      <option value="Los Angeles Clippers">Los Angeles Clippers</option>
+      <option value="Los Angeles Lakers">Los Angeles Lakers</option>
+      <option value="Memphis Grizzlies">Memphis Grizzlies</option>
+      <option value="Miami Heat">Miami Heat</option>
+      <option value="Milwaukee Bucks">Milwaukee Bucks</option>
+      <option value="Minnesota Timberwolves">Minnesota Timberwolves</option>
+      <option value="New Orleans Pelicans">New Orleans Pelicans</option>
+      <option value="New York Knicks">New York Knicks</option>
+      <option value="Oklahoma City Thunder">Oklahoma City Thunder</option>
+      <option value="Orlando Magic">Orlando Magic</option>
+      <option value="Philadelphia 76ers">Philadelphia 76ers</option>
+      <option value="Phoenix Suns">Phoenix Suns</option>
+      <option value="Portland Trail Blazers">Portland Trail Blazers</option>
+      <option value="Sacramento Kings">Sacramento Kings</option>
+      <option value="San Antonio Spurs">San Antonio Spurs</option>
+      <option value="Toronto Raptors">Toronto Raptors</option>
+      <option value="Utah Jazz">Utah Jazz</option>
+      <option value="Washington Wizards">Washington Wizards</option>
+     </select>
+    </ul>
+    </div>
+    <p>  </p>
+    <a href="#" class="btn_2"> </a>
+    </div>
+    </div>
+    </div>
+
+ <div class="col-md-6  col-xl-6">
+ <div class="upcoming_event_1">
+ <img src="img/upcoming_event_2.png" alt="#">
+   <div class="upcoming_event_text">
+   <div class="date">
+   <h3>Pick a Team </h3>
+     </div>
+      <div class="time">
+    <ul class="list-unstyle">
+     <select>
+      <option value="Atlanta Hawks">Atlanta Hawks</option>
+      <option value="Boston Celtics">Boston Celtics</option>
+      <option value="Brooklyn Nets">Brooklyn Nets</option>
+      <option value="Charlotte Hornets">Charlotte Hornets</option>
+      <option value="Chicago Bulls">Chicago Bulls</option>
+      <option value="Cleveland Cavaliers">Cleveland Cavaliers</option>
+      <option value="Dallas Mavericks">Dallas Mavericks</option>
+      <option value="Denver Nuggets">Denver Nuggets</option>
+      <option value="Detroit Pistons">Detroit Pistons</option>
+      <option value="Golden State Warriors">Golden State Warriors</option>
+      <option value="Houston Rockets">Houston Rockets</option>
+      <option value="Indiana Pacers">Indiana Pacers</option>
+      <option value="Los Angeles Clippers">Los Angeles Clippers</option>
+      <option value="Los Angeles Lakers">Los Angeles Lakers</option>
+      <option value="Memphis Grizzlies">Memphis Grizzlies</option>
+      <option value="Miami Heat">Miami Heat</option>
+      <option value="Milwaukee Bucks">Milwaukee Bucks</option>
+      <option value="Minnesota Timberwolves">Minnesota Timberwolves</option>
+      <option value="New Orleans Pelicans">New Orleans Pelicans</option>
+      <option value="New York Knicks">New York Knicks</option>
+      <option value="Oklahoma City Thunder">Oklahoma City Thunder</option>
+      <option value="Orlando Magic">Orlando Magic</option>
+      <option value="Philadelphia 76ers">Philadelphia 76ers</option>
+      <option value="Phoenix Suns">Phoenix Suns</option>
+      <option value="Portland Trail Blazers">Portland Trail Blazers</option>
+      <option value="Sacramento Kings">Sacramento Kings</option>
+      <option value="San Antonio Spurs">San Antonio Spurs</option>
+      <option value="Toronto Raptors">Toronto Raptors</option>
+      <option value="Utah Jazz">Utah Jazz</option>
+      <option value="Washington Wizards">Washington Wizards</option>
+     </select>
+    </ul>
+    </div>
+    <p>  </p>
+    <a href="#" class="btn_2"> </a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+   </section>
+   <!-- Select a Team-->
+
+    </div>
+   {% endblock %}
+  </body>
+</html>

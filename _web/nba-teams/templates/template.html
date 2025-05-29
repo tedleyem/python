@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>Template</title>
+   <!-- Custom CSS -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+   <!-- Bootstrap -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+   <!-- fonts -->
+   <link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900" rel="stylesheet">
+   </head>
+ <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">NBA Team Info Scraper</h1>
+        <strong><nav>
+          <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            <li><a href="https://twitter.com/TechGameTeddy">@TechGameTeddy</a></li>
+          </ul>
+        </nav></strong>
+        </nav>
+      </strong>
+      </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <div class="footer">
+    <p>Written with Python, Flask, and Passion by <a href="https://www.tedley.me">Tedley Meralus</a></p>
+    <div>Icons made by <a href="https://www.freepik.com/?__hstc=57440181.0e02ed5dae3882163d46aa3ab02bfaa8.1556822393733.1556822393733.1556822393733.1&__hssc=57440181.4.1556822393734&__hsfp=864318250" title="Freepik">Freepik</a>
+      from
+      <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a>
+      is licensed by
+      <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+    </div>
+
+    </div>
+ </body>
+</html>

@@ -1,0 +1,18 @@
+hostname: ${hostname}
+https:
+  certificate: /data/cert/${hostname}.cert
+  private_key: /data/cert/${hostname}.key
+harbor_admin_password: ${admin_password}
+database:
+  password: ${database_password}
+jobservice:
+  max_job_workers: 10
+data_volume: /data
+log:
+  level: info
+  local:
+    location: /var/log/harbor
+    rotate_count: 50
+    rotate_size: 200M
+notification:
+  webhook_job_max_retry: 10

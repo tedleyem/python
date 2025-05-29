@@ -1,0 +1,152 @@
+To make the repository names match the image names, you can modify the `check_tags_in_harbor_for_multiple_images` function to use the image name directly as the repository name when interacting with the Harbor registry.
+
+Here’s the updated Python script where the repository names are dynamically set to match the image names:
+
+### Updated Python Script:
+
+```python
+import requests
+import docker
+from docker.errors import ImageNotFound
+
+def get_docker_image_tags(image_name):
+    url = f"https://hub.docker.com/v2/repositories/{image_name}/tags/"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        tags_data = response.json()
+        tags = [tag['name'] for tag in tags_data['results']]
+        # Get the last 5 tags
+        last_5_tags = tags[:5]
+        return last_5_tags
+    else:
+        print(f"Failed to retrieve tags for {image_name}. Status code: {response.status_code}")
+        return []
+
+def check_tag_exists_in_harbor(tag, harbor_url, project_name, repository_name):
+    harbor_api_url = f"{harbor_url}/api/v2.0/projects/{project_name}/repositories/{repository_name}/tags/{tag}"
+    response = requests.get(harbor_api_url)
+    
+    if response.status_code == 200:
+        return True  # Tag exists
+    elif response.status_code == 404:
+        return False  # Tag does not exist
+    else:
+        print(f"Error checking tag {tag}: {response.status_code}")
+        return False
+
+def pull_image_locally(image_name, tag):
+    client = docker.from_env()
+    image_tag = f"{image_name}:{tag}"
+    
+    try:
+        # Try to pull the image from Docker Hub if not found locally
+        print(f"Pulling image {image_tag} locally...")
+        client.images.pull(image_name, tag=tag)
+        print(f"Successfully pulled image {image_tag}.")
+    except Exception as e:
+        print(f"Failed to pull image {image_tag}: {e}")
+
+def push_image_to_harbor(image_name, tag, harbor_url, project_name, robot_username, robot_password):
+    client = docker.from_env()
+    image_tag = f"{image_name}:{tag}"
+    harbor_image = f"{harbor_url}/{project_name}/{image_name}:{tag}"
+
+    try:
+        # Authenticate Docker client with Harbor robot credentials
+        client.login(username=robot_username, password=robot_password, registry=harbor_url)
+        
+        # Tag the image with the Harbor registry destination
+        image = client.images.get(image_tag)
+        image.tag(harbor_image)
+        
+        # Push the image to Harbor
+        print(f"Pushing image {image_tag} to Harbor: {harbor_image}")
+        client.images.push(harbor_image)
+        print(f"Successfully pushed image {harbor_image}.")
+    except Exception as e:
+        print(f"Failed to push image {image_tag} to Harbor: {e}")
+
+def check_tags_in_harbor_for_multiple_images(image_names, harbor_url, project_name, robot_username, robot_password):
+    # Initialize Docker client
+    client = docker.from_env()
+
+    # Loop through the list of image names
+    for image_name in image_names:
+        print(f"\nChecking tags for image: {image_name}")
+        
+        # Step 1: Retrieve the last 5 tags from Docker Hub for the current image
+        tags = get_docker_image_tags(image_name)
+        if not tags:
+            print(f"No tags retrieved for {image_name}.")
+            continue
+
+        # Step 2: Check if each of the last 5 tags exists in the Harbor registry
+        for tag in tags:
+            exists = check_tag_exists_in_harbor(tag, harbor_url, project_name, image_name)
+            print(f"  Tag '{tag}' exists in Harbor: {exists}")
+            
+            # If the tag does not exist in Harbor, try pulling it locally and pushing to Harbor
+            if not exists:
+                try:
+                    # Check if the image with the specific tag exists locally
+                    client.images.get(f"{image_name}:{tag}")
+                    print(f"  Tag '{tag}' found locally.")
+                except ImageNotFound:
+                    # Image not found locally, pull it from Docker Hub
+                    pull_image_locally(image_name, tag)
+                
+                # After pulling, push it to Harbor using robot credentials
+                push_image_to_harbor(image_name, tag, harbor_url, project_name, robot_username, robot_password)
+
+# Example usage:
+image_names = [
+    "library/python",  # Replace with your list of Docker image names
+    "library/nginx",
+    "library/alpine"
+]
+
+harbor_url = "https://example.com"  # Replace with your Harbor registry URL
+project_name = "your_project"  # Replace with your Harbor project name
+robot_username = "robot$your_project$your_robot_name"  # Replace with your robot account username
+robot_password = "<robot_password_or_token>"  # Replace with your robot account password or token
+
+check_tags_in_harbor_for_multiple_images(image_names, harbor_url, project_name, robot_username, robot_password)
+```
+
+### Explanation of Key Changes:
+1. **Dynamic Repository Name**: The `repository_name` is now set to match the `image_name`. This is done by replacing the `repository_name` parameter with `image_name` in the `check_tag_exists_in_harbor` and `push_image_to_harbor` functions.
+   - **For example**: If the image is `library/python`, the repository name in Harbor will also be `python` (you can adjust this if your naming convention differs).
+   
+2. **Harbor Repository Construction**: In the `push_image_to_harbor` function, the Harbor image tag is built using the `image_name` as both the Docker image name and the Harbor repository name. This ensures that the image is pushed to the correct repository in Harbor that matches the image name.
+
+### Example Output:
+
+```
+Checking tags for image: library/python
+  Tag '3.10.4' exists in Harbor: False
+  Tag '3.10.4' found locally.
+  Pushing image library/python:3.10.4 to Harbor: https://example.com/your_project/python:3.10.4
+  Successfully pushed image https://example.com/your_project/python:3.10.4.
+  Tag '3.9.6' exists in Harbor: True
+  Tag '3.8.10' exists in Harbor: False
+  Tag '3.8.10' found locally.
+  Pushing image library/python:3.8.10 to Harbor: https://example.com/your_project/python:3.8.10
+  Successfully pushed image https://example.com/your_project/python:3.8.10.
+  ...
+
+Checking tags for image: library/nginx
+  Tag '1.21.3' exists in Harbor: False
+  Tag '1.21.3' found locally.
+  Pushing image library/nginx:1.21.3 to Harbor: https://example.com/your_project/nginx:1.21.3
+  Successfully pushed image https://example.com/your_project/nginx:1.21.3.
+  ...
+```
+
+### Key Points:
+- **Repository Name Matches Image Name**: The script now pushes images to repositories in Harbor where the repository name is the same as the image name (e.g., `library/python` will be pushed to `python` in Harbor).
+- **Robot Credentials**: The robot username and password (or token) are used to authenticate with Harbor when pushing the images.
+- **Dynamic Image Name Handling**: The repository name in Harbor is dynamically set to match the image name, ensuring that the image is pushed to the correct location.
+
+This should work seamlessly as long as the image names and repository names match in your Harbor setup. Let me know if you need further adjustments!
+

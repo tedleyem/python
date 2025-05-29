@@ -1,0 +1,25 @@
+---
+- name: Sync Docker Images between Docker Hub and 172-105-152-241.ip.linodeusercontent.com Registry
+  hosts: localhost
+  gather_facts: no
+  vars_prompt:
+    - name: "image_name"
+      prompt: "Enter the Docker image name (e.g., 'ubuntu')"
+      private: no
+
+  tasks:
+    - name: Retrieve image tags from Docker Hub
+      uri:
+        url: "https://hub.docker.com/v2/repositories/library/{{ image_name }}/tags/"
+        method: GET
+        return_content: yes
+      register: docker_hub_response
+
+    - name: Parse Docker Hub tags
+      set_fact:
+        image_tags: "{{ docker_hub_response.json.results | map(attribute='name') | list | slice(0, 5) }}"
+
+# docker tag SOURCE_IMAGE[:TAG] 172-105-152-241.ip.linodeusercontent.com:8000/library/REPOSITORY[:TAG]
+    - name: Check if image exists in 172-105-152-241.ip.linodeusercontent.com registry
+      debug: 
+        msg: "{{ image_tags.stdout }}"
